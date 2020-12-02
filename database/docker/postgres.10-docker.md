@@ -61,7 +61,7 @@ This command copies the database into the container's `/var/lib/postgresql/data`
 b. Once copied, we can then use the `pg_restore` command to import
 
 ```
-docker exec postgres10 pg_restore -U postgres -d database_name /path/in/container/to/database.backup.sql
+docker exec postgres10 pg_restore -U postgres -d database_name -a -f /path/in/container/to/database.backup.sql
 ```
 
 - so if you ran the `docker cp` command in step c, then the command would look like:
@@ -74,7 +74,13 @@ docker exec postgres10 pg_restore -U postgres -d database_name /var/lib/postgres
 - if you used a shared volume (as we talked about in step 4) instead and not the `docker cp` command, then your command would look like:
 
 ```
-docker exec postgres10 pg_restore -U postgres -d database_name /backups/database.backup.sql
+docker exec postgres10 pg_restore -U postgres -d database_name -a -f /backups/database.backup.sql
+```
+
+If for some reason `pg_restore` isn't working, we can try this:
+
+```
+docker exec postgres10 psql -U postgres -d database_name < /PATH/TO/database.backup.sql
 ```
 
 
@@ -99,6 +105,17 @@ docker exec -it postgres10 psql -U postgres
 
 this logs you into `psql` as the `postgres` user.  from there you can create databases, drop them, do all kinds of things.
 
+## Creating a Role
+
+1. Login to `psql`
+
+2. Create role called <role-name>: `create role <role-name>;` (optional)
+
+## Create a tablespace
+
+1. login to `psql`
+
+2. run the command: `create tablespace <tablespace-name> location 'C:\File'`
 
 ## The following is a generalized idea of what we performed:
 
