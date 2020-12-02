@@ -2,19 +2,6 @@
 
 This document will walk you through the use of a Postgres 10 Docker Image.
 
-
-Find the name and id of the Docker container hosting the Postgres instance
-Turn on Docker and run `docker ps` to see the list of containers and their names and ids.
-
-Find the volumes available in the Docker container
-Run `docker inspect -f '{{ json .Mounts }}' <container_id> | python -m json.tool`
-
-Copy the dump from your host system to one of the volumes
-Run docker cp </path/to/dump/in/host> <container_name>:<path_to_volume>
-
-Execute pg_restore via docker exec command
-docker exec <container_name> pg_restore -U <database_owner> -d <database_name> <path_to_dump>
-
 # Steps
 
 1) sign up and register for docker hub
@@ -111,3 +98,19 @@ docker exec -it postgres10 psql -U postgres
 ```
 
 this logs you into `psql` as the `postgres` user.  from there you can create databases, drop them, do all kinds of things.
+
+
+## The following is a generalized idea of what we performed:
+
+
+### Find the name and id of the Docker container hosting the Postgres instance
+Turn on Docker and run `docker ps` to see the list of containers and their names and ids.
+
+### Find the volumes available in the Docker container
+Run `docker inspect -f '{{ json .Mounts }}' <container_id> | python -m json.tool`
+
+### Copy the dump from your host system to one of the volumes
+Run docker cp </path/to/dump/in/host> <container_name>:<path_to_volume>
+
+### Execute pg_restore via `docker exec` command
+docker exec <container_name> pg_restore -U <database_owner> -d <database_name> <path_to_dump>
