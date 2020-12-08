@@ -58,29 +58,36 @@ This command copies the database into the container's `/var/lib/postgresql/data`
 
 >**NOTE:** the `postgres10` is the name of our container.  obviously if you didnt name it this, you would use whatever you had named it. or the container id.
 
-b. Once copied, we can then use the `pg_restore` command to import
+d. Once copied, we can then use the `pg_restore` command to import:
 
+Login to `bash` prompt of your container
 ```
-docker exec postgres10 pg_restore -U postgres -d database_name -a -f /path/in/container/to/database.backup.sql
+docker exec -it postgres10 /bin/bash
+```
+
+In the `psql` prompt, initiate the `pg_restore`
+```
+pg_restore -U postgres -d database_name -a -f /path/in/container/to/database.backup.sql;
 ```
 
 - so if you ran the `docker cp` command in step c, then the command would look like:
+> **NOTE**: this all takes place in the `bash` prompt of the container
 
 ```
-docker exec postgres10 pg_restore -U postgres -d database_name /var/lib/postgresql/data
+pg_restore -U postgres -d database_name /var/lib/postgresql/data;
 ```
 
 
 - if you used a shared volume (as we talked about in step 4) instead and not the `docker cp` command, then your command would look like:
 
 ```
-docker exec postgres10 pg_restore -U postgres -d database_name -a -f /backups/database.backup.sql
+pg_restore -U postgres -d database_name -a -f /backups/database.backup.sql
 ```
 
 If for some reason `pg_restore` isn't working, we can try this:
 
 ```
-docker exec postgres10 psql -U postgres -d database_name < /PATH/TO/database.backup.sql
+psql -U postgres -d database_name < /PATH/TO/database.backup.sql
 ```
 
 
