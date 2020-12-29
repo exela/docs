@@ -1,7 +1,7 @@
 function dlfix() {
   echo "Select the Portal Version."
   echo ""
-  select portalversion in 7010 7110 7210
+  select portalversion in 7010 7110 7210 7310
   do
     case $portalversion in
       7010)
@@ -25,6 +25,13 @@ function dlfix() {
         portaldir=7.2.10
         break
         ;;
+      7310)
+        echo ""
+        echo "You have selected " $portalversion"."
+        echo ""
+        portaldir=7.3.10
+        break
+        ;;
       *)
         echo ""
         echo "Invalid selection. Please try again."
@@ -43,14 +50,14 @@ function dlfix() {
     echo ""
     if [ -d ./patching-tool ]; then
       cd ./patching-tool/patches
-      curl -n -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/hotfix/liferay-hotfix-$patchnumber-$portalversion.zip
+      curl -n -a -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/hotfix/liferay-hotfix-$patchnumber-$portalversion.zip
       cd -
       echo ""
       echo "Downloaded liferay-hotfix-"$patchnumber-$portalversion".zip"
       echo ""
     elif [ -d ./patches ]; then
       cd ./patches
-      curl -n -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/hotfix/liferay-hotfix-$patchnumber-$portalversion.zip
+      curl -n -a -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/hotfix/liferay-hotfix-$patchnumber-$portalversion.zip
       cd -
       echo ""
       echo "Downloaded liferay-hotfix-"$patchnumber-$portalversion".zip"
@@ -68,28 +75,28 @@ function dlfix() {
     read patchnumber
     if [ -d ./patching-tool ] && [ $portalversion = 7010 ]; then
       cd ./patching-tool/patches
-      curl -n -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/de/liferay-fix-pack-de-$patchnumber-$portalversion.zip
+      curl -n -a -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/de/liferay-fix-pack-de-$patchnumber-$portalversion.zip
       cd -
       echo ""
       echo "Downloaded liferay-fix-pack-de-"$patchnumber-$portalversion".zip"
       echo ""
     elif [ -d ./patching-tool ] && [ $portalversion != 7010 ]; then
       cd ./patching-tool/patches
-      curl -n -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/dxp/liferay-fix-pack-dxp-$patchnumber-$portalversion.zip
+      curl -n -a -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/dxp/liferay-fix-pack-dxp-$patchnumber-$portalversion.zip
       cd -
       echo ""
       echo "Downloaded liferay-fix-pack-dxp-"$patchnumber-$portalversion".zip"
       echo ""
     elif [ -d ./patches ] && [ $portalversion = 7010 ]; then
       cd ./patches
-      curl -n -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/de/liferay-fix-pack-$patchnumber-$portalversion.zip
+      curl -n -a -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/de/liferay-fix-pack-$patchnumber-$portalversion.zip
       cd -
       echo ""
       echo "Downloaded liferay-fix-pack-de-"$patchnumber-$portalversion".zip"
       echo ""
     elif [ -d ./patches ] && [ $portalversion != 7010 ]; then
       cd ./patches
-      curl -n -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/dxp/liferay-fix-pack-$patchnumber-$portalversion.zip
+      curl -n -a -O -v http://files.liferay.com/private/ee/fix-packs/$portaldir/dxp/liferay-fix-pack-$patchnumber-$portalversion.zip
       cd -
       echo ""
       echo "Downloaded liferay-fix-pack-dxp-"$patchnumber-$portalversion".zip"
