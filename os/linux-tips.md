@@ -1,5 +1,5 @@
 # Linux Tips
-====
+----
 
 This is a collection of the commands and items that might prove useful.
 
@@ -7,7 +7,7 @@ Remember, `apt` is designed for more of a user-friendly version of `apt-get`.
 
 
 # OS Setup
------
+----
 
 ## Update & Maintain the Distro
 This updates your ubuntu distro (keep up-to-date) sort of thing.
