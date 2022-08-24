@@ -10,6 +10,10 @@ https://liferay.atlassian.net/wiki/spaces/KB/pages/2044330461/Oracle+Database+-+
 - Docker and Docker Hub Account
 - At least 10GB+ of file space
 
+# Using the pre-compiled Docker Image
+If you have a copy of the pre-compiled image. Please skip the Setup Section.
+
+
 # Setup
 
 1. Setup the repo
@@ -27,6 +31,15 @@ https://liferay.atlassian.net/wiki/spaces/KB/pages/2044330461/Oracle+Database+-+
 4. Build out the image. Note: remember, you will need about 10GB+ of space.
 - before building out, make sure you are logged into docker `docker login`
 - `./buildContainerImage.sh -v 19.3.0 -t oracle19c:19.3.0ee -e`
+
+# Pre-compiled Image and Docker Load
+If you have the multi-part oracle-19.3a* files, please perform the following:
+1. in terminal navigate to the folder to where the files were downloaded.
+2. combine parts into 1 file. `cat oracle-19.3a* > /file/path/to/oracle-19.3ee.tar.gz`
+3. extract into the `tar.gz` file. `gunzip /file/path/to/oracle-19.3ee.tar.gz`
+4. load into docker. `docker load < oracle-19.3ee.tar`
+5. find imageid. `docker images`
+6. tag the image. `docker tag oracle19c:19.3.0ee`
 
 # Startup/Configuring the Database
 
